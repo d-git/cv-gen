@@ -27,3 +27,6 @@ by running the following commands
 
 
 In this case we run the application at port 9000 so don't forget to expose port 9000 in VirtualBox Manager.
+
+
+get /CV/:id to generate pdf 
