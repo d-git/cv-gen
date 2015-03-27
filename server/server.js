@@ -1,16 +1,24 @@
 var path = require('path');
 var express = require('express');
+var fs = require('fs');
+var ejs = require('ejs');
+var pdf = require('html-pdf');
 var app = express();
 
 // You probably want to change 'dist/' to '../dist/' for production
 app.use('/', express.static(path.join(__dirname, 'dist/')));
 
-app.get('/kalle', function(req, res) {
-    console.log("ASD");
-
-    res.send('Your email is: ' + req.headers['x-forwarded-email'] + ' and your accname: ' + req.headers['x-forwarded-user']);
-});
-
 var server = app.listen(9000, function () {
-    console.log('Server started: http://localhost:%s/', server.address().port);
+    var template = fs.readFileSync('./cv.ejs', 'utf8');
+    var data = { title: 'My CV' };
+    var html = ejs.render(template, data);
+    var options = {filename: './cv.pdf', format: 'Letter'};
+
+    pdf.create(html, options).toFile(function (err, res) {
+        if (err) return console.log(err);
+        console.log(res);
+    });
 });
+
+
+
