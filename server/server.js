@@ -10,7 +10,7 @@ app.use('/', express.static(path.join(__dirname, 'dist/')));
 
 var server = app.listen(9000, function () {
     var template = fs.readFileSync('./cv.ejs', 'utf8');
-    var data = { title: 'My CV' };
+    var data = { title: 'My CV', experties: ['C++', 'Java'], experience: ['node.js'] };
     var html = ejs.render(template, data);
     var options = {filename: './cv.pdf', format: 'Letter'};
 
